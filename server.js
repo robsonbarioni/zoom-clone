@@ -1,11 +1,3 @@
-/*
-- add ability to allow others to stream their video
-- add styling
-- add the ability to create messages
-- add mute button
-- add stop video button
-*/
-
 const port = process.env.PORT || 3000;
 const format = require("date-fns").format;
 const express = require("express");
@@ -34,13 +26,18 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-connected", { username, userId });
 
-    socket.on("message", ({ username, text }) => {
+    socket.on("message", ({ text }) => {
       console.log(`${username} sent a message to room: ${userId}`);
       io.in(roomId).emit("message", {
         date: format(new Date(), "HH:mm"),
         username,
         text,
       });
+    });
+
+    socket.on("disconnect", function () {
+      console.log(`${username} leave the room: ${userId}`);
+      io.in(roomId).emit("disconnect", { username, userId });
     });
   });
 });

@@ -1,6 +1,7 @@
 ## O que é isso?
 
-Um projeto de estudo, realizando o clone do "Zoom" (software de video conferência) escrito em NodeJs.
+Um projeto de estudo, realizando o clone do "Zoom" (software de video conferência) escrito em NodeJs e
+implementando o streaming de audio, video e chat
 
 ## Como executar?
 

@@ -14,7 +14,7 @@ let myStream = false;
 let socketId = false;
 let peerId = false;
 
-const socket = io("/"); //io.connect("/", { transports: ["polling"] });
+const socket = io("/");
 socket.on("connect", (client) =>
   console.log(`socketId: ${(socketId = socket.id)}`)
 );
@@ -48,7 +48,7 @@ const start = (currentStream) => {
 
   console.log("attach events");
 
-  //chat message
+  //send a message
   const chatInput = document.getElementById('chat-input');
   chatInput.addEventListener('keydown', (event) => {
     if(event.which !== 13 || !chatInput.value)
@@ -59,10 +59,10 @@ const start = (currentStream) => {
     chatInput.value = '';
 
     console.log(message);
-    socket.emit('message', {text:message, username:_UserName});
+    socket.emit('message', {text:message});
   });
 
-  //mute/unmute
+  //mute|unmute
   const mute = document.getElementById('btn-mute');
   mute.addEventListener('click', (event) => {
     const newState = !(currentStream.getAudioTracks()[0].enabled);
@@ -70,7 +70,7 @@ const start = (currentStream) => {
     mute.className = newState ? 'fas fa-microphone' : 'fas fa-microphone-slash';
   });
 
-  //stop/start video
+  //stop|start video
   const video = document.getElementById('btn-video');
   video.addEventListener('click', (event) => {
     const newState = !(currentStream.getVideoTracks()[0].enabled);
@@ -94,6 +94,7 @@ const start = (currentStream) => {
     receivingStream(call);
   });
 
+  //receive a message
   const chatMessages = document.getElementById('chat-messages');
   socket.on('message', ({date, username, text}) => {
     console.log('msg',date, username, text);
@@ -106,6 +107,13 @@ const start = (currentStream) => {
     `;
 
     chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+
+  //member leave
+  socket.on('disconnect', ({username, userId}) => {
+    console.log(`${username} leaves the room: ${userId}`);
+    const video = document.getElementById(userId);
+    video && video.remove();
   });
 
   //join to the room
