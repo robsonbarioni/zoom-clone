@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoom Clone</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js" defer></script>
+    <script> 
+        const _RoomId = "<%= roomId %>";
+        const _UserName = "jhon sample";
+    </script>
+  </head>
+  <body>
+      <main>
+        <div id="video-grid"></div>
+        <section>
+          <div class="control">
+            <button id="btn-mute" class="fas fa-microphone"><span>Mute</span></button>  
+            <button id="btn-video" class="fas fa-video"><span>Stop Video</span></button>  
+          </div>
+          <div class="contact">
+            <button id="btn-security" class="fa fa-shield-alt"><span>Security</span></button>  
+            <button id="btn-members" class="fa fa-user-friends"><span>Participants</span></button>  
+            <button id="btn-chat" class="fa fa-comment-alt"><span>Chat</span></button>  
+          </div>
+          <button class="leave"><span>Leave Meeting</span></button>
+        </section>  
+      </main>
+
+      <aside>
+        <h1>Chat</h1>
+        <ul id="chat-messages">
+          <!-- 
+            <li>
+              <em>12:00</em>
+              <span>jhon sample</span>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </li> 
+          -->
+        </ul>
+        <input id="chat-input" type="text" placeholder="Type message here...">
+      </aside>
+      
+  </body>
+</html>
