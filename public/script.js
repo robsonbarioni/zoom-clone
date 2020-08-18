@@ -19,7 +19,7 @@ socket.on("connect", (client) =>
   console.log(`socketId: ${(socketId = socket.id)}`)
 );
 
-const peer = new Peer(undefined, { path: "/peerjs", host: "/", port: 443 });
+const peer = new Peer(undefined, { path: "/peerjs", host: "/", port: _Port });
 peer.on("open", (id) => console.log(`peerId: ${(peerId = id)}`));
 
 //request midia access
