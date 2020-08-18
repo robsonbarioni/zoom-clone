@@ -17,7 +17,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:room", (req, res) => {
-  res.render("room", { roomId: req.params.room, port });
+  const peerPort = process.env.PORT ? 443 : port; // on release must be 443
+  res.render("room", { roomId: req.params.room, port: peerPort });
 });
 
 io.on("connection", (socket) => {
